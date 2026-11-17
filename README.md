@@ -1,45 +1,31 @@
-# YTP Studio demo media
+# YTP Studio — CD-i Classics demo media
 
-A small, dedicated media repository for the **CD-i Classics** demo project in [YTP Studio](https://github.com/dogedojo/ytp-studio).
+A small, public repository for the five original CD-i animation clips used by [YTP Studio](https://github.com/dogedojo/ytp-studio)'s editable demo project.
 
-This repository stores only the short, low-resolution video excerpts used by the built-in demo. The editor fetches the MP4 files directly from GitHub's public `raw.githubusercontent.com` host; no separate importer service, R2 bucket, or media server is required.
+## Playback order
 
-## Required files
+The five supplied YouTube links appear in **reverse order**, with original audio preserved:
 
-Upload these two files into the matching folders:
-
-| Path | Contents | Target format |
+| Order | YouTube source | Expected MP4 |
 | --- | --- | --- |
-| `videos/hotel-mario/opening-480p.mp4` | Short Hotel Mario CD-i opening excerpt | 480p, H.264 video, AAC audio, MP4 |
-| `videos/zelda-cdi/morshu-scenes-480p.mp4` | Short excerpt containing Morshu's two scenes | 480p, H.264 video, AAC audio, MP4 |
+| 1 | [`-Dv_DXqdC9k`](https://www.youtube.com/watch?v=-Dv_DXqdC9k) | `videos/-Dv_DXqdC9k.mp4` |
+| 2 | [`NQGA6eZmZyg`](https://www.youtube.com/watch?v=NQGA6eZmZyg) | `videos/NQGA6eZmZyg.mp4` |
+| 3 | [`4g57OQVMinU`](https://www.youtube.com/watch?v=4g57OQVMinU) | `videos/4g57OQVMinU.mp4` |
+| 4 | [`BYXVhTUIQGc`](https://www.youtube.com/watch?v=BYXVhTUIQGc) | `videos/BYXVhTUIQGc.mp4` |
+| 5 | [`Lekmfl245DA`](https://www.youtube.com/watch?v=Lekmfl245DA) | `videos/Lekmfl245DA.mp4` |
 
-Keep each file **under 20 MiB** (20,971,520 bytes) so it stays comfortably below GitHub's browser upload limit. Use ordinary Git files, not Git LFS. The demo fetches the files in the browser and imports them into the visitor's local YTP Studio project.
+The media is converted to browser-friendly MP4 (H.264 video, AAC audio, 480p maximum, 20 MiB per file). The [source manifest](sources.json) records each original link, output file, order, and media metadata.
 
-### Excerpt layout expected by YTP Studio
+## Import workflow
 
-- **Hotel Mario:** the file should contain at least the first 7.4 seconds of the intended opening excerpt. The demo uses source ranges around 0–7.4 seconds.
-- **Zelda CD-i / Morshu:** make one short file with the first Morshu scene first, followed by the second scene. The current demo expects the first scene at 0 seconds and the second at approximately 9 seconds. In the cited source compilation, the two scenes begin at approximately 00:58 and 01:07. A short gap between the excerpts is fine.
+[GitHub Actions](.github/workflows/import-cdi-demo.yml) runs [the downloader script](scripts/import-cdi-demo.sh) when the workflow itself changes or is manually dispatched. It downloads the source videos with yt-dlp, converts them with FFmpeg, and attempts to commit the MP4 files into this repository. The upload is only complete if the workflow reports success and the files actually appear under `videos/`.
 
-Do not add full-length compilations or unrelated footage. Keeping these files short makes the demo quick to load.
+YouTube may reject downloads from GitHub-hosted IP addresses with an automated-traffic challenge. If that happens, the files will have to be supplied through a permitted export or local download instead; do not upload private browser cookies or credentials.
 
-## Source manifest
+## YTP Studio integration
 
-See [`sources.json`](sources.json) for source URLs, attribution, source timecodes, excerpt layout, file paths, file hashes, and redistribution status. Fill in the file metadata after uploading each clip.
+[PR #4](https://github.com/dogedojo/ytp-studio/pull/4) downloads the media from the public repository by a fixed Git commit SHA and builds five adjacent editable clips with linked original audio, matching the order above. After the five files are present, update `DEMO_MEDIA_REVISION` in `src/demo-media.ts` to the media commit SHA and verify the preview.
 
-**Important:** permission to make YTPs from a source is not automatically permission to rehost the source recording publicly. Only upload footage that you have the right to redistribute, have created yourself, or have explicit permission to host. The manifest currently records the source references but does not claim that redistribution permission has been established. No Nintendo license or public-domain status is implied.
+## Source rights
 
-## Connect the files to YTP Studio
-
-The app configuration is in [`src/demo-media.ts`](https://github.com/dogedojo/ytp-studio/blob/feature/cdi-classics-demo-20261116/src/demo-media.ts) in [PR #4](https://github.com/dogedojo/ytp-studio/pull/4). It uses an immutable 40-character commit SHA so production and branch previews fetch the same media version.
-
-After both MP4s are uploaded:
-
-1. Copy the commit SHA that contains both files.
-2. Update `DEMO_MEDIA_REVISION` in `src/demo-media.ts` in YTP Studio to that SHA.
-3. Run the YTP Studio checks and verify the demo on the Cloudflare branch preview.
-
-Until the media is uploaded and the SHA is pinned, the demo intentionally displays a setup message instead of trying to download missing files.
-
-## Updating media
-
-Treat each media update as a new version. Update `sources.json`, replace the MP4 files in a commit, and then update the pinned SHA in YTP Studio. Do not rewrite history after a version has been pinned.
+These are third-party animations. Source links and uploader credits do not establish a public redistribution license. The repository owner should verify permission and respond to any valid takedown or licensing requests. GitHub visibility does not confer rights to the footage.
