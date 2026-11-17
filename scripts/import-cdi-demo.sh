@@ -17,13 +17,25 @@ for id in "${ids[@]}"; do
   fi
 
   echo "::group::Download ${id}"
-  yt-dlp \
-    --no-playlist --no-warnings --retries 3 --fragment-retries 3 \
-    --socket-timeout 30 \
+  # Try the standard public extraction first, then alternate supported
+  # player clients. Do not request or upload personal browser cookies.
+  if ! yt-dlp \
+    --no-playlist --no-warnings --retries 2 --fragment-retries 2 \
+    --socket-timeout 30 --js-runtimes node \
     --format 'bv*[height<=480]+ba/b[height<=480]/b' \
     --merge-output-format mkv \
     --output "$tmpdir/${id}.%(ext)s" \
-    "https://www.youtube.com/watch?v=${id}"
+    "https://www.youtube.com/watch?v=${id}"; then
+    echo "::warning::Default extraction failed for ${id}; trying the public embedded client."
+    yt-dlp \
+      --no-playlist --no-warnings --retries 2 --fragment-retries 2 \
+      --socket-timeout 30 --js-runtimes node \
+      --extractor-args "youtube:player_client=web_embedded,android_vr" \
+      --format 'bv*[height<=480]+ba/b[height<=480]/b' \
+      --merge-output-format mkv \
+      --output "$tmpdir/${id}.%(ext)s" \
+      "https://www.youtube.com/watch?v=${id}"
+  fi
   echo "::endgroup::"
 
   source_file="$(find "$tmpdir" -maxdepth 1 -type f -name "${id}.*" ! -name '*.part' | head -n 1)"
