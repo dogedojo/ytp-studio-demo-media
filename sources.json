@@ -19,7 +19,7 @@
       "title": "Hotel Mario — Opening",
       "path": "videos/-Dv_DXqdC9k.mp4",
       "source_url": "https://www.youtube.com/watch?v=-Dv_DXqdC9k",
-      "status": "awaiting_download",
+      "status": "download_blocked_by_youtube",
       "redistribution_permission": "not_verified",
       "metadata": {
         "duration_seconds": null,
@@ -33,7 +33,7 @@
       "title": "Hotel Mario — Toasters",
       "path": "videos/NQGA6eZmZyg.mp4",
       "source_url": "https://www.youtube.com/watch?v=NQGA6eZmZyg",
-      "status": "awaiting_download",
+      "status": "not_attempted",
       "redistribution_permission": "not_verified",
       "metadata": {
         "duration_seconds": null,
@@ -47,7 +47,7 @@
       "title": "CD-i Cutscene — 4g57OQVMinU",
       "path": "videos/4g57OQVMinU.mp4",
       "source_url": "https://www.youtube.com/watch?v=4g57OQVMinU",
-      "status": "awaiting_download",
+      "status": "not_attempted",
       "redistribution_permission": "not_verified",
       "metadata": {
         "duration_seconds": null,
@@ -61,7 +61,7 @@
       "title": "Hotel Mario — No",
       "path": "videos/BYXVhTUIQGc.mp4",
       "source_url": "https://www.youtube.com/watch?v=BYXVhTUIQGc",
-      "status": "awaiting_download",
+      "status": "not_attempted",
       "redistribution_permission": "not_verified",
       "metadata": {
         "duration_seconds": null,
@@ -75,7 +75,7 @@
       "title": "Zelda CD-i — Cutscene Memes",
       "path": "videos/Lekmfl245DA.mp4",
       "source_url": "https://www.youtube.com/watch?v=Lekmfl245DA",
-      "status": "awaiting_download",
+      "status": "not_attempted",
       "redistribution_permission": "not_verified",
       "metadata": {
         "duration_seconds": null,
@@ -83,5 +83,13 @@
         "sha256": null
       }
     }
-  ]
+  ],
+  "import_attempt": {
+    "result": "blocked",
+    "run_url": "https://github.com/dogedojo/ytp-studio-demo-media/actions/runs/44023381728",
+    "failure": "YouTube returned an automated-traffic sign-in challenge for the first source. Both default and alternate public player clients failed.",
+    "first_attempted_id": "-Dv_DXqdC9k",
+    "files_uploaded": 0,
+    "note": "Remaining four sources were not attempted because the downloader stops at the first failure."
+  }
 }
