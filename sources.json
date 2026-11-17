@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "project": "YTP Studio — CD-i Classics demo",
+  "repository": "https://github.com/dogedojo/ytp-studio-demo-media",
+  "media_policy": {
+    "max_file_size_bytes": 25165824,
+    "container": "MP4",
+    "video": "H.264",
+    "audio": "AAC",
+    "target_resolution": "480p",
+    "git_lfs": false,
+    "redistribution_permission_established": false,
+    "notes": "Source references are attribution and provenance information, not proof of permission to redistribute the recordings. Upload only footage that the repository owner has the right to host publicly."
+  },
+  "files": [
+    {
+      "path": "videos/hotel-mario/opening-480p.mp4",
+      "title": "Hotel Mario — original CD-i opening excerpt",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=-Dv_DXqdC9k",
+        "uploader": "Ratmus1",
+        "description": "Original CD-i capture. The archived description reportedly invites YouTube Poop reuse.",
+        "source_start_seconds": null,
+        "source_end_seconds": null
+      },
+      "excerpt": {
+        "description": "Short opening excerpt used by the demo.",
+        "expected_minimum_duration_seconds": 7.4,
+        "used_source_ranges_seconds": [
+          [0, 5],
+          [3.7, 6.2],
+          [6.2, 7.4],
+          [0, 4.2]
+        ]
+      },
+      "redistribution_permission": "not_established",
+      "status": "awaiting_media_and_rights_confirmation"
+    },
+    {
+      "path": "videos/zelda-cdi/morshu-scenes-480p.mp4",
+      "title": "Zelda CD-i — Morshu scene excerpts",
+      "source": {
+        "url": "https://www.youtube.com/watch?v=WI86T5MSXgY",
+        "uploader": "sonikkuspoops",
+        "description": "Cutscene compilation reportedly assembled from new rips of the original game's graphics.",
+        "source_start_seconds": 58,
+        "source_end_seconds": 74
+      },
+      "excerpt": {
+        "description": "Join the two short Morshu scenes into one file: first scene at the beginning, second scene at approximately 9 seconds.",
+        "expected_minimum_duration_seconds": 16,
+        "scene_starts_in_excerpt_seconds": [0, 9],
+        "scene_starts_in_source_seconds": [58, 67],
+        "used_source_ranges_seconds": [
+          [0, 8.5],
+          [1.2, 3],
+          [9, 16],
+          [11.5, 13.1]
+        ]
+      },
+      "redistribution_permission": "not_established",
+      "status": "awaiting_media_and_rights_confirmation"
+    }
+  ]
+}
