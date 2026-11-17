@@ -13,7 +13,7 @@ Upload these two files into the matching folders:
 | `videos/hotel-mario/opening-480p.mp4` | Short Hotel Mario CD-i opening excerpt | 480p, H.264 video, AAC audio, MP4 |
 | `videos/zelda-cdi/morshu-scenes-480p.mp4` | Short excerpt containing Morshu's two scenes | 480p, H.264 video, AAC audio, MP4 |
 
-Keep each file **under 24 MiB**. Use ordinary Git files, not Git LFS. The demo fetches the files in the browser and imports them into the visitor's local YTP Studio project.
+Keep each file **under 20 MiB** (20,971,520 bytes) so it stays comfortably below GitHub's browser upload limit. Use ordinary Git files, not Git LFS. The demo fetches the files in the browser and imports them into the visitor's local YTP Studio project.
 
 ### Excerpt layout expected by YTP Studio
 
@@ -24,13 +24,13 @@ Do not add full-length compilations or unrelated footage. Keeping these files sh
 
 ## Source manifest
 
-See [`sources.json`](sources.json) for source URLs, attribution, source timecodes, excerpt layout, file paths, and redistribution status. Update it whenever the media changes.
+See [`sources.json`](sources.json) for source URLs, attribution, source timecodes, excerpt layout, file paths, file hashes, and redistribution status. Fill in the file metadata after uploading each clip.
 
 **Important:** permission to make YTPs from a source is not automatically permission to rehost the source recording publicly. Only upload footage that you have the right to redistribute, have created yourself, or have explicit permission to host. The manifest currently records the source references but does not claim that redistribution permission has been established. No Nintendo license or public-domain status is implied.
 
 ## Connect the files to YTP Studio
 
-The app configuration is in [`src/demo-media.ts`](https://github.com/dogedojo/ytp-studio/blob/main/src/demo-media.ts). It uses an immutable 40-character commit SHA so production and branch previews fetch the same media version.
+The app configuration is in [`src/demo-media.ts`](https://github.com/dogedojo/ytp-studio/blob/feature/cdi-classics-demo-20261116/src/demo-media.ts) in [PR #4](https://github.com/dogedojo/ytp-studio/pull/4). It uses an immutable 40-character commit SHA so production and branch previews fetch the same media version.
 
 After both MP4s are uploaded:
 
