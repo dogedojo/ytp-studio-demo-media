@@ -20,7 +20,13 @@ The media is converted to browser-friendly MP4 (H.264 video, AAC audio, 480p max
 
 [GitHub Actions](.github/workflows/import-cdi-demo.yml) runs [the downloader script](scripts/import-cdi-demo.sh) when the workflow itself changes or is manually dispatched. It downloads the source videos with yt-dlp, converts them with FFmpeg, and attempts to commit the MP4 files into this repository. The upload is only complete if the workflow reports success and the files actually appear under `videos/`.
 
-YouTube may reject downloads from GitHub-hosted IP addresses with an automated-traffic challenge. If that happens, the files will have to be supplied through a permitted export or local download instead; do not upload private browser cookies or credentials.
+GitHub-hosted runners currently receive YouTube's **"Sign in to confirm you're not a bot"** challenge. To run **the same GitHub Action** from a connection that can download the videos:
+
+1. Open [Settings → Actions → Runners](https://github.com/dogedojo/ytp-studio-demo-media/settings/actions/runners), choose **New self-hosted runner**, and follow GitHub's instructions on a Linux host you control.
+2. Once your runner is online, open [Import five CD-i demo clips](https://github.com/dogedojo/ytp-studio-demo-media/actions/workflows/import-cdi-demo.yml), choose **Run workflow**, and select **self-hosted**.
+3. The action runs yt-dlp and FFmpeg on that Linux machine, commits every downloaded MP4 to this repo, and reports any links it could not fetch.
+
+The default `ubuntu-latest` option uses GitHub's hosted runner. It can test every source individually and commit successful partial downloads, but YouTube may block its shared IP addresses. The **self-hosted** option requires a registered **Linux** runner with Python, pip and sudo/apt support; it does not send browser cookies or other credentials to GitHub. Keep that machine's runner secure, as with any self-hosted CI executor.
 
 ## YTP Studio integration
 
