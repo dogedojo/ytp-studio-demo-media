@@ -26,7 +26,11 @@ jobs:
         run: |
           python3 -m pip install --user --upgrade "yt-dlp[default]"
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-      - name: Check ffmpeg
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Check FFmpeg
         run: ffmpeg -version | head -n 1
       - name: Download and encode demo videos
         run: bash scripts/import-cdi-demo.sh
