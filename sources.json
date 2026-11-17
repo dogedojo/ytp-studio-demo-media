@@ -19,12 +19,12 @@
       "title": "Hotel Mario — Opening",
       "path": "videos/-Dv_DXqdC9k.mp4",
       "source_url": "https://www.youtube.com/watch?v=-Dv_DXqdC9k",
-      "status": "download_blocked_by_youtube",
+      "status": "available",
       "redistribution_permission": "not_verified",
       "metadata": {
-        "duration_seconds": null,
-        "size_bytes": null,
-        "sha256": null
+        "duration_seconds": 49.458503,
+        "size_bytes": 1338889,
+        "sha256": "df4b71f59731fbdde1459910bc0589dfd4146d7a833c6a225ae0d443c1b28059"
       }
     },
     {
@@ -33,12 +33,12 @@
       "title": "Hotel Mario — Toasters",
       "path": "videos/NQGA6eZmZyg.mp4",
       "source_url": "https://www.youtube.com/watch?v=NQGA6eZmZyg",
-      "status": "not_attempted",
+      "status": "available",
       "redistribution_permission": "not_verified",
       "metadata": {
-        "duration_seconds": null,
-        "size_bytes": null,
-        "sha256": null
+        "duration_seconds": 24.009433,
+        "size_bytes": 962002,
+        "sha256": "9cbfffd4744804d7d66db3531fa75840c006e753f2a7d511bcf8a66864ae2b52"
       }
     },
     {
@@ -47,12 +47,12 @@
       "title": "CD-i Cutscene — 4g57OQVMinU",
       "path": "videos/4g57OQVMinU.mp4",
       "source_url": "https://www.youtube.com/watch?v=4g57OQVMinU",
-      "status": "not_attempted",
+      "status": "available",
       "redistribution_permission": "not_verified",
       "metadata": {
-        "duration_seconds": null,
-        "size_bytes": null,
-        "sha256": null
+        "duration_seconds": 15.000091,
+        "size_bytes": 702839,
+        "sha256": "ad8b76b5fc8aadb6613663bc7b2c2f5de062c1d71b614cc2972ed6e01bd3a110"
       }
     },
     {
@@ -61,12 +61,12 @@
       "title": "Hotel Mario — No",
       "path": "videos/BYXVhTUIQGc.mp4",
       "source_url": "https://www.youtube.com/watch?v=BYXVhTUIQGc",
-      "status": "not_attempted",
+      "status": "available",
       "redistribution_permission": "not_verified",
       "metadata": {
-        "duration_seconds": null,
-        "size_bytes": null,
-        "sha256": null
+        "duration_seconds": 2.089796,
+        "size_bytes": 91332,
+        "sha256": "ebd96052ad447bc903afc776a270f8f0e7876bb9373225662278a10f0e08acf4"
       }
     },
     {
@@ -75,21 +75,13 @@
       "title": "Zelda CD-i — Cutscene Memes",
       "path": "videos/Lekmfl245DA.mp4",
       "source_url": "https://www.youtube.com/watch?v=Lekmfl245DA",
-      "status": "not_attempted",
+      "status": "available",
       "redistribution_permission": "not_verified",
       "metadata": {
-        "duration_seconds": null,
-        "size_bytes": null,
-        "sha256": null
+        "duration_seconds": 105.906213,
+        "size_bytes": 7114787,
+        "sha256": "abefcd8ae41f388f1b7d0741518ceb2bb473065417f2c525646dbd1641250419"
       }
     }
-  ],
-  "import_attempt": {
-    "result": "blocked",
-    "run_url": "https://github.com/dogedojo/ytp-studio-demo-media/actions/runs/44023381728",
-    "failure": "YouTube returned an automated-traffic sign-in challenge for the first source. Both default and alternate public player clients failed.",
-    "first_attempted_id": "-Dv_DXqdC9k",
-    "files_uploaded": 0,
-    "note": "Remaining four sources were not attempted because the downloader stops at the first failure."
-  }
+  ]
 }
