@@ -5,6 +5,15 @@ on:
     paths:
       - ".github/workflows/import-cdi-demo.yml"
   workflow_dispatch:
+    inputs:
+      runner:
+        description: "GitHub-hosted IPs may be blocked by YouTube. Use self-hosted for a registered runner on your own network."
+        required: true
+        type: choice
+        options:
+          - ubuntu-latest
+          - self-hosted
+        default: ubuntu-latest
 
 permissions:
   contents: write
@@ -15,7 +24,7 @@ concurrency:
 
 jobs:
   import:
-    runs-on: ubuntu-latest
+    runs-on: ${{ github.event_name == 'workflow_dispatch' && inputs.runner || 'ubuntu-latest' }}
     timeout-minutes: 30
     steps:
       - name: Check out media repository
@@ -37,8 +46,10 @@ jobs:
       - name: Check FFmpeg
         run: ffmpeg -version | head -n 1
       - name: Download and encode demo videos
+        id: import
+        continue-on-error: true
         run: bash scripts/import-cdi-demo.sh
-      - name: Commit downloaded MP4s
+      - name: Commit any successfully downloaded MP4s
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -48,4 +59,17 @@ jobs:
           else
             git commit -m "Import five original CD-i demo clips at 480p"
             git push origin HEAD:main
+          fi
+      - name: Fail if any requested video was not downloaded
+        run: |
+          missing=0
+          for id in -Dv_DXqdC9k NQGA6eZmZyg 4g57OQVMinU BYXVhTUIQGc Lekmfl245DA; do
+            if [[ ! -s "videos/${id}.mp4" ]]; then
+              echo "::error::Missing videos/${id}.mp4"
+              missing=1
+            fi
+          done
+          if (( missing )); then
+            echo "::error::GitHub-hosted runners may be blocked by YouTube. Re-run with the self-hosted option after registering a runner on your own network."
+            exit 1
           fi
