@@ -1,0 +1,43 @@
+name: Import five CD-i demo clips
+
+on:
+  push:
+    paths:
+      - ".github/workflows/import-cdi-demo.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: import-cdi-demo
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out media repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Install yt-dlp
+        run: |
+          python3 -m pip install --user --upgrade "yt-dlp[default]"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+      - name: Check ffmpeg
+        run: ffmpeg -version | head -n 1
+      - name: Download and encode demo videos
+        run: bash scripts/import-cdi-demo.sh
+      - name: Commit downloaded MP4s
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add videos
+          if git diff --cached --quiet; then
+            echo "No new media files to commit."
+          else
+            git commit -m "Import five original CD-i demo clips at 480p"
+            git push origin HEAD:main
+          fi
