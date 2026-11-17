@@ -6,6 +6,7 @@ set -euo pipefail
 # no outbound network access.
 ids=("-Dv_DXqdC9k" "NQGA6eZmZyg" "4g57OQVMinU" "BYXVhTUIQGc" "Lekmfl245DA")
 mkdir -p videos
+failed=()
 tmpdir="$(mktemp -d)"
 trap 'rm -rf "$tmpdir"' EXIT
 
@@ -27,14 +28,18 @@ for id in "${ids[@]}"; do
     --output "$tmpdir/${id}.%(ext)s" \
     "https://www.youtube.com/watch?v=${id}"; then
     echo "::warning::Default extraction failed for ${id}; trying the public embedded client."
-    yt-dlp \
+    if ! yt-dlp \
       --no-playlist --no-warnings --retries 2 --fragment-retries 2 \
       --socket-timeout 30 --js-runtimes node \
       --extractor-args "youtube:player_client=web_embedded,android_vr" \
       --format 'bv*[height<=480]+ba/b[height<=480]/b' \
       --merge-output-format mkv \
       --output "$tmpdir/${id}.%(ext)s" \
-      "https://www.youtube.com/watch?v=${id}"
+      "https://www.youtube.com/watch?v=${id}"; then
+      echo "::error::YouTube refused the download for ${id}. Try a self-hosted GitHub Actions runner on a connection that can access this video."
+      failed+=("${id}")
+      continue
+    fi
   fi
   echo "::endgroup::"
 
@@ -94,5 +99,10 @@ path.with_suffix(".json").write_text(json.dumps(metadata, indent=2) + "\n")
 PY
 
 done
+
+if (( ${#failed[@]} > 0 )); then
+  printf '::error::The following sources could not be downloaded: %s\n' "${failed[*]}"
+  exit 1
+fi
 
 echo "All five clips downloaded and converted."
